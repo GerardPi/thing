@@ -1,0 +1,16 @@
+.idea
+*.iml
+target
+*.jar
+.classpath
+.project
+.settings
+
+*.db
+*.db-backup
+./jgiven-reports
+jgiven-reports
+dependency-reduced-pom.xml
+out.txt
+*.log
+*.log.zip

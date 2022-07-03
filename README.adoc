@@ -1,0 +1,18 @@
+= FN - File Navigator
+
+== Introduction
+
+This is a https://www.vim.org[VIM] and https://github.com/ranger/ranger[Ranger] inspired filemanager and plain-text editor.
+
+== Implementation
+
+It was implemented in Java.
+
+== Build
+
+Use maven:
+
+    # clone the repository to directory fn
+    cd fn
+    mvn clean package
+    mvn javafx:run

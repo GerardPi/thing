@@ -1,0 +1,26 @@
+.code-area, .table-view {
+    -fx-background-color: linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
+        linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 3, 2;
+    -fx-padding: 0.041666625em;
+}
+
+.code-area:focused,  .table-view:focused {
+    -fx-background-color:
+        -fx-focus-color,
+        -fx-control-inner-background,
+        -fx-faint-focus-color,
+        linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-insets: -0.2, 4, -1.4, 3;
+    -fx-background-radius: 3, 2, 4, 0;
+}
+
+.code-area .scroll-bar:horizontal {
+    -fx-background-radius: 0 0 2 2;
+}
+
+.code-area .scroll-bar:vertical {
+    -fx-background-radius: 0 2 2 0;
+}
+
