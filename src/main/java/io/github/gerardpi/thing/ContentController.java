@@ -1,9 +1,9 @@
 package io.github.gerardpi.thing;
 
-import com.google.common.base.MoreObjects;
 import javafx.scene.Node;
 
 import java.util.Set;
+import java.util.StringJoiner;
 
 public abstract class ContentController<C extends ContentContext> implements Comparable<ContentController> {
     private final ContentContext contentContext;
@@ -28,12 +28,12 @@ public abstract class ContentController<C extends ContentContext> implements Com
 
     public abstract void emulateKeys(ViKeyToCuaMapping viKeyToCuaMapping);
 
-    public abstract void handle(FnEvent te);
+    public abstract void handle(ThingEvent te);
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("contentContext", contentContext)
+        return new StringJoiner(", ", ContentController.class.getSimpleName() + "[", "]")
+                .add("contentContext=" + contentContext)
                 .toString();
     }
 }

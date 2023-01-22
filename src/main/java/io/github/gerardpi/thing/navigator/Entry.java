@@ -1,6 +1,5 @@
 package io.github.gerardpi.thing.navigator;
 
-import com.google.common.base.MoreObjects;
 import io.github.gerardpi.thing.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
@@ -161,19 +161,20 @@ public class Entry implements Comparable<Entry> {
 
     @Override
     public String toString() {
-        return createToStringHelper().toString();
+        return createToStringJoiner().toString();
     }
 
-    protected MoreObjects.ToStringHelper createToStringHelper() {
-        return MoreObjects.toStringHelper(this)
-                .add(PROPNAME_NAME, name)
-                .add(PROPNAME_SIZE, size)
-                .add(PROPNAME_PROFILE, profile)
-                .add(PROPNAME_CREATED, created)
-                .add(PROPNAME_MODIFIED, modified)
-                .add(PROPNAME_ACCESSED, accessed)
-                .add(PROPNAME_HIDDEN, hidden)
-                .add(PROPNAME_NAVIGATOR_EXCEPTION, navigatorException);
+    protected StringJoiner createToStringJoiner() {
+        return new StringJoiner(", ", Entry.class.getSimpleName() + "[", "]")
+                .add("name='" + name + "'")
+                .add("size=" + size)
+                .add("profile='" + profile + "'")
+                .add("created=" + created)
+                .add("modified=" + modified)
+                .add("accessed=" + accessed)
+                .add("hidden=" + hidden)
+                .add("selected=" + selected)
+                .add("navigatorException=" + navigatorException);
     }
 
     @Override

@@ -5,16 +5,17 @@ import io.github.gerardpi.thing.editor.EditorController;
 import io.github.gerardpi.thing.logging.TextAreaLogAppender;
 import io.github.gerardpi.thing.navigator.NavigatorContext;
 import io.github.gerardpi.thing.navigator.NavigatorController;
+import javafx.application.Platform;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.control.Tab;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class MainController implements EventHandler<KeyEvent> {
         TextAreaLogAppender.configureLogger(view.getLog(), getClass());
         view.bindMode(state.modeProperty());
         bindCommandInputFocusChange(view, this);
-        this.state.setCapsLockOn(Toolkit.getDefaultToolkit().getLockingKeyState(java.awt.event.KeyEvent.VK_CAPS_LOCK));
+//         this.state.setCapsLockOn(Toolkit.getDefaultToolkit().getLockingKeyState(java.awt.event.KeyEvent.VK_CAPS_LOCK));
         this.commandController = new CommandController(this);
     }
 
@@ -55,11 +56,16 @@ public class MainController implements EventHandler<KeyEvent> {
     }
 
     public void updateIndicators() {
-        boolean isCapsLockOnNow = Toolkit.getDefaultToolkit().getLockingKeyState(java.awt.event.KeyEvent.VK_CAPS_LOCK);
-        if (isCapsLockOnNow != state.isCapsLockOn()) {
-            state.setCapsLockOn(isCapsLockOnNow);
-            view.setCapsLockIndicatorOn(state.isCapsLockOn());
-        }
+        // https://stackoverflow.com/questions/11119227/is-it-ok-to-use-awt-with-javafx
+        // https://bugs.openjdk.org/browse/JDK-8259680
+        //boolean isCapsLockOnNow = Toolkit.getDefaultToolkit().getLockingKeyState(java.awt.event.KeyEvent.VK_CAPS_LOCK);
+        Platform.isKeyLocked(KeyCode.CAPS)
+                .ifPresentOrElse(isCapsLockOnNow -> {
+                    if (isCapsLockOnNow != state.isCapsLockOn()) {
+                        state.setCapsLockOn(isCapsLockOnNow);
+                        view.setCapsLockIndicatorOn(state.isCapsLockOn());
+                    }
+                }, () -> LOG.info("Can not get state of caps lock"));
     }
 
     public ObservableValue<String> contextProperty() {
@@ -72,10 +78,10 @@ public class MainController implements EventHandler<KeyEvent> {
     }
 
     public void handle(KeyEvent event) {
-        handle(new FnEvent(event.getSource() == view.getCommandInput(), event));
+        handle(new ThingEvent(event.getSource() == view.getCommandInput(), event));
     }
 
-    public void handle(FnEvent e) {
+    public void handle(ThingEvent e) {
         if (e.isEscape()) {
             enterNormalMode();
         } else if (e.isEmulated()) {
@@ -90,7 +96,7 @@ public class MainController implements EventHandler<KeyEvent> {
         updateIndicators();
     }
 
-    private void handleCommandEvent(FnEvent e) {
+    private void handleCommandEvent(ThingEvent e) {
         if (e.isEscape()) {
             state.enterNormalMode();
             clearCommandInput();

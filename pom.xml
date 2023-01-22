@@ -83,11 +83,6 @@
             <version>${javafx.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>31.1-jre</version>
-        </dependency>
-        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
@@ -192,11 +187,26 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.openjfx</groupId>-->
+            <!--                <artifactId>javafx-maven-plugin</artifactId>-->
+            <!--                <version>0.0.8</version>-->
+            <!--                <configuration>-->
+            <!--                    <mainClass>io.github.gerardpi.thing.Launcher</mainClass>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
+                    <stripDebug>true</stripDebug>
+                    <compress>2</compress>
+                    <noHeaderFiles>true</noHeaderFiles>
+                    <noManPages>true</noManPages>
+                    <launcher>hellofx</launcher>
+                    <jlinkImageName>hello</jlinkImageName>
+                    <jlinkZipName>hellozip</jlinkZipName>
                     <mainClass>io.github.gerardpi.thing.Launcher</mainClass>
                 </configuration>
             </plugin>

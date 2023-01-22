@@ -1,10 +1,9 @@
 package io.github.gerardpi.thing;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum Mode {
@@ -16,7 +15,7 @@ public enum Mode {
     COMMAND("C:"),
     SEARCH_REVERSE("C?"),
     SEARCH_FORWARD("C/");
-    public static final Set<Mode> ALL_MODES = ImmutableSet.copyOf(Mode.values());
+    public static final Set<Mode> ALL_MODES = Set.of(Mode.values());
     public static final Set<Mode> ALL_MODES_EXCEPT_INSERT = allModesExcept(Mode.INSERT);
     private final String code;
     Mode(String code) {
@@ -24,9 +23,10 @@ public enum Mode {
     }
 
     private static Set<Mode> allModesExcept(Mode... modesToExclude) {
-        Set<Mode> modes = Sets.newHashSet(Mode.values());
-        Stream.of(modesToExclude).forEach(modes::remove);
-        return Collections.unmodifiableSet(modes);
+        Set<Mode> modesToExcludeSet = Set.of(modesToExclude);
+        return ALL_MODES.stream()
+                .filter(mode -> !modesToExcludeSet.contains(mode))
+                .collect(Collectors.toUnmodifiableSet());
     }
 
     public boolean isCommandMode() {

@@ -1,6 +1,5 @@
 package io.github.gerardpi.thing;
 
-import com.google.common.collect.ImmutableList;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -16,7 +15,7 @@ public class State {
 
 
     private final SimpleObjectProperty<Mode> modeProperty;
-    private final ObservableList<FnEvent> thingEventSequence;
+    private final ObservableList<ThingEvent> thingEventSequence;
 
     private boolean capsLockOn;
 
@@ -82,7 +81,7 @@ public class State {
         return getMode().isNormalMode();
     }
 
-    public void addToSequence(FnEvent te) {
+    public void addToSequence(ThingEvent te) {
         thingEventSequence.add(te);
     }
 
@@ -90,8 +89,8 @@ public class State {
         thingEventSequence.clear();
     }
 
-    public List<FnEvent> getThingEventSequence() {
-        return ImmutableList.copyOf(thingEventSequence.iterator());
+    public List<ThingEvent> getThingEventSequence() {
+        return List.copyOf(thingEventSequence.sorted());
     }
 
     public boolean waitingForSequenceToComplete() {

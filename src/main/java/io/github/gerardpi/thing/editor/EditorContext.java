@@ -1,6 +1,5 @@
 package io.github.gerardpi.thing.editor;
 
-import com.google.common.base.MoreObjects;
 import io.github.gerardpi.thing.ContentContext;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -10,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.StringJoiner;
 
 public class EditorContext implements ContentContext {
     public static final Path NO_PATH = Paths.get("##NONE##");
@@ -66,8 +66,9 @@ public class EditorContext implements ContentContext {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("name", getName())
+        return new StringJoiner(", ", EditorContext.class.getSimpleName() + "[", "]")
+                .add("name=" + getName())
+                .add("filePath=" + filePath)
                 .toString();
     }
 }

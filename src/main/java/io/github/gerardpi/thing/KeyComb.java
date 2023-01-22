@@ -1,10 +1,11 @@
 package io.github.gerardpi.thing;
 
-import com.google.common.base.MoreObjects;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.StringJoiner;
 
 public class KeyComb {
     private static final Logger LOG = LoggerFactory.getLogger(KeyComb.class);
@@ -128,11 +129,14 @@ public class KeyComb {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("code", code)
-                .add("keyCategory", keyCategory)
-                .add("character", character)
-                .add("modifiers", modifiersToString())
+        return new StringJoiner(", ", KeyComb.class.getSimpleName() + "[", "]")
+                .add("code=" + code)
+                .add("character='" + character + "'")
+                .add("shift=" + shift)
+                .add("ctrl=" + ctrl)
+                .add("alt=" + alt)
+                .add("meta=" + meta)
+                .add("keyCategory=" + keyCategory)
                 .toString();
     }
 

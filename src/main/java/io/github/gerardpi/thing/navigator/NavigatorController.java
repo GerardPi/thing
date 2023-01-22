@@ -1,6 +1,5 @@
 package io.github.gerardpi.thing.navigator;
 
-import com.google.common.base.Strings;
 import io.github.gerardpi.thing.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -152,8 +151,8 @@ public class NavigatorController extends ContentController<NavigatorContext> imp
     }
 
     @Override
-    public void handle(FnEvent fnEvent) {
-        ViKeyDef.findMatch(fnEvent).ifPresentOrElse(
+    public void handle(ThingEvent thingEvent) {
+        ViKeyDef.findMatch(thingEvent).ifPresentOrElse(
                 viKeyDef -> {
                     switch (viKeyDef) {
                         case FM_GO_TO_PARENT_DIRECTORY -> {
@@ -178,7 +177,7 @@ public class NavigatorController extends ContentController<NavigatorContext> imp
                     }
                 },
                 () -> {
-                    LOG.info("No {} found for {} {}", ViKeyDef.class.getSimpleName(), FnEvent.class.getSimpleName(), fnEvent);
+                    LOG.info("No {} found for {} {}", ViKeyDef.class.getSimpleName(), ThingEvent.class.getSimpleName(), thingEvent);
                 });
     }
 

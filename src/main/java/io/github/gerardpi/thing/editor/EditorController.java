@@ -38,7 +38,7 @@ public class EditorController extends ContentController<EditorContext> {
     }
 
     @Override
-    public void handle(FnEvent te) {
+    public void handle(ThingEvent te) {
 
     }
 

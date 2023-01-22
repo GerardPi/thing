@@ -1,6 +1,5 @@
 package io.github.gerardpi.thing;
 
-import com.google.common.base.Preconditions;
 
 import java.util.Objects;
 import java.util.Optional;

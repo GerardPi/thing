@@ -1,15 +1,11 @@
 package io.github.gerardpi.thing;
 
-import com.google.common.base.MoreObjects;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 
@@ -97,7 +93,7 @@ public enum ViKeyDef {
         this(keyComb, false);
     }
 
-    public static Optional<ViKeyDef> findMatch(FnEvent thingEvent) {
+    public static Optional<ViKeyDef> findMatch(ThingEvent thingEvent) {
         return Stream.of(values())
                 .filter(kd -> kd.keyComb.match(thingEvent.getKeyEvent()))
                 .findAny();
@@ -147,21 +143,23 @@ public enum ViKeyDef {
         return TAB.keyComb.match(keyEvent);
     }
 
-    public boolean matchThingEvent(FnEvent fnEvent) {
-        return keyComb.match(fnEvent.getKeyEvent());
+    public boolean matchThingEvent(ThingEvent thingEvent) {
+        return keyComb.match(thingEvent.getKeyEvent());
     }
 
     public boolean matchKeyEvent(KeyEvent keyEvent) {
         return keyComb.match(keyEvent);
     }
 
+
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("keyComb", keyComb)
-                .add("#px", mayBePrefixedByNumber)
+        return new StringJoiner(", ", ViKeyDef.class.getSimpleName() + "[", "]")
+                .add("keyComb=" + keyComb)
+                .add("mayBePrefixedByNumber=" + mayBePrefixedByNumber)
                 .toString();
     }
+
 
     public boolean isEscape() {
         return ESCAPE_MODES.contains(this);

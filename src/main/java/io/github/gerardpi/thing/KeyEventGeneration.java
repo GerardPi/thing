@@ -6,7 +6,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 
-import static io.github.gerardpi.thing.FnEvent.EMULATED_KEY_EVENT_TEXT;
+import static io.github.gerardpi.thing.ThingEvent.EMULATED_KEY_EVENT_TEXT;
 
 
 public final class KeyEventGeneration {

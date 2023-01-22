@@ -1,23 +1,24 @@
 package io.github.gerardpi.thing;
 
-import com.google.common.base.MoreObjects;
 import javafx.scene.input.KeyEvent;
 
-public class FnEvent {
+import java.util.StringJoiner;
+
+public class ThingEvent {
     public static final String EMULATED_KEY_EVENT_TEXT = "emulated";
     private final boolean fromCommandInput;
     private final KeyEvent keyEvent;
     private final boolean keyReleased;
     private final boolean keyTyped;
 
-    FnEvent(boolean fromCommandInput, KeyEvent keyEvent) {
+    ThingEvent(boolean fromCommandInput, KeyEvent keyEvent) {
         this.fromCommandInput = fromCommandInput;
         this.keyEvent = keyEvent;
         this.keyReleased = KeyEvent.KEY_RELEASED.equals(keyEvent.getEventType());
         this.keyTyped = KeyEvent.KEY_TYPED.equals(keyEvent.getEventType());
     }
 
-    public FnEvent(KeyEvent keyEvent) {
+    public ThingEvent(KeyEvent keyEvent) {
         this(false, keyEvent);
     }
 
@@ -46,10 +47,12 @@ public class FnEvent {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("fromCommandInput", fromCommandInput)
-                .add("keyEvent.getCode", keyEvent.getCode())
-                .add("mods str", getModifiersString(keyEvent))
+        return new StringJoiner(", ", ThingEvent.class.getSimpleName() + "[", "]")
+                .add("fromCommandInput=" + fromCommandInput)
+                .add("keyEvent=" + keyEvent)
+                .add("keyReleased=" + keyReleased)
+                .add("keyTyped=" + keyTyped)
+                .add("modifiersString=" + getModifiersString(keyEvent))
                 .toString();
     }
 

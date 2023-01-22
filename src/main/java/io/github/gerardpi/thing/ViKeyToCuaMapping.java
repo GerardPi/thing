@@ -1,6 +1,5 @@
 package io.github.gerardpi.thing;
 
-import com.google.common.collect.ImmutableList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -37,7 +36,7 @@ public enum ViKeyToCuaMapping {
 
     ViKeyToCuaMapping(ViKeyDef viKeyDef, KeyCodeCombination... keyCodeCombination) {
         this.viKeyDef = viKeyDef;
-        this.keyCodeCombinations = ImmutableList.copyOf(keyCodeCombination);
+        this.keyCodeCombinations = List.of(keyCodeCombination);
     }
 
     public static Optional<ViKeyToCuaMapping> matches(ViKeyDef viKeyDef) {
@@ -46,13 +45,13 @@ public enum ViKeyToCuaMapping {
                 .findAny();
     }
 
-    public static Optional<ViKeyToCuaMapping> matchesKeyRelease(FnEvent thingEvent) {
+    public static Optional<ViKeyToCuaMapping> matchesKeyRelease(ThingEvent thingEvent) {
         return Stream.of(values())
                 .filter(vkd -> thingEvent.matchesKeyRelease(vkd.viKeyDef))
                 .findAny();
     }
 
-    public static Optional<ViKeyToCuaMapping> matchesKeyTyped(FnEvent thingEvent) {
+    public static Optional<ViKeyToCuaMapping> matchesKeyTyped(ThingEvent thingEvent) {
         return Stream.of(values())
                 .filter(vkd -> thingEvent.matchesKeyTyped(vkd.viKeyDef))
                 .findAny();

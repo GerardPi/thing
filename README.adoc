@@ -16,3 +16,10 @@ Use maven:
     cd fn
     mvn clean package
     mvn javafx:run
+
+
+== Modularisation
+
+
+* https://edencoding.com/runtime-components-error/
+* https://edencoding.com/javafx-maven/

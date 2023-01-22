@@ -1,12 +1,12 @@
 package io.github.gerardpi.thing.navigator;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Strings;
 import io.github.gerardpi.thing.ContentContext;
+import io.github.gerardpi.thing.Strings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.util.StringConverter;
 
 import java.nio.file.Path;
+import java.util.StringJoiner;
 
 import static io.github.gerardpi.thing.HumanReadableFormatting.formatSize;
 
@@ -183,8 +183,8 @@ public class NavigatorContext implements ContentContext {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("name", getName())
+        return new StringJoiner(", ", NavigatorContext.class.getSimpleName() + "[", "]")
+                .add("name=" + getName())
                 .toString();
     }
 }
